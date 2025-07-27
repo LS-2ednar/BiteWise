@@ -1,6 +1,9 @@
 from term_image.image import from_url, Size
 
 def provide_image(url):
+    """
+    Fetch an Image and display it with the term_image library
+    """
     try:
         image = from_url(url)
     except:

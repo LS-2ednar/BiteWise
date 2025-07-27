@@ -8,7 +8,7 @@ def get_recipe(url, recipe_name="Baked Salmon",unit_type="metric"):
     """
     get a recipe from a url
     """
-
+    print("\n\nThis Process will take some time but fear not your food is beeing preped.\n\n")
     recipe = requests.get(url)
 
     load_dotenv()
@@ -25,7 +25,7 @@ def get_recipe(url, recipe_name="Baked Salmon",unit_type="metric"):
     recipe_ingredients = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
-            contents = f"Summarize the Ingredients needed to prepare the dish mentioned (ensure that you use {unit_type} units) in the follwing text: {recipe.text}"
+            contents = f"Summarize the Ingredients needed to prepare the dish mentioned (ensure that you use {unit_type} units also: make sure, that only the ingredients are listed with there units no extra text) in the follwing text: {recipe.text}"
         )
 
 
@@ -36,6 +36,9 @@ def get_recipe(url, recipe_name="Baked Salmon",unit_type="metric"):
         )
 
     if check.text != True:
+
+        print("\nLooks like we where not able to reach the website, therefore we will create a recipe using an LLM\n")
+
         recipe_steps = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
@@ -45,7 +48,7 @@ def get_recipe(url, recipe_name="Baked Salmon",unit_type="metric"):
         recipe_ingredients = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
-            contents = f"Write a list of all ingredients needed for the following recipie steps {recipe_steps} using {unit_type} units."
+            contents = f"Write a list of all ingredients needed for the following recipie steps using {unit_type} units make sure, that only the ingredients are listed with there units no extra text. It should look like this Ingredient::XXXXunit where XXXX are numbers. Here is the Text you should work with:{recipe_steps}"
         )
     
     return recipe_steps.text, recipe_ingredients.text
