@@ -58,7 +58,7 @@ def main():
     group.add_argument("--test", "-t", action="store_true", help="A Demo for our friend Boots the Bear")
     group.add_argument("--recipe", "-r" ,type=str, help="Get a recipe for the dish you are looking for")
     group.add_argument("--nutrition","-n", type=str, help="Get Nutritonal information about your dish")
-
+    group.add_argument("--init","-i", type=str, help="Setup your GEMINI API KEY")
 
     
     group.add_argument("--name", type=str, help="Name of a recipe to search for")
@@ -77,6 +77,7 @@ Before Refactoring Area
 """
 
 
+
 def test():
     
     """
@@ -92,10 +93,10 @@ def test():
     
     
     
-    """
+    
     makros = get_makros(ingredients)
     print(makros)
-    """
+    
     """
     provide_image(img_url)
     """

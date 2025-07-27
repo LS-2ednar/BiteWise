@@ -8,10 +8,18 @@ def get_makros(ingredients):
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client(api_key=api_key)
 
-    makros = client.models.generate_content(
-        model ="gemini-2.0-flash-001",
-        contents = f"Return the Makro nutrients (kcal, Protein, Carbs, Fatts) of the listed ingredients combined. Make sure to just return the makro nutriens not more. I do not want to see any explanation on why the estimate was created. {ingredients}"
-    )
+    nutrion_table = ["Ingredient - amount - kcal - protein - carbs - fatts"]
 
-    return makros.text
+    for ingredient in ingredients.split("\n"):
+
+        makros = client.models.generate_content(
+            model ="gemini-2.0-flash-001",
+            contents = f"Return the Makro nutrients for {ingredient}. if you have not recived anything return "". It is mandatory that you only return kcal, protein, carbs and fatts. MANDATORY!!! Use this format for your output 'kcal - protein - carbs - fatts' NO additonal text please."
+        )
+
+        nutrion_table.append(f"{ingredient} - {makros.text}")
+
+    for entry in nutrion_table:
+        print(entry)
+    return 
     

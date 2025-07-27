@@ -4,7 +4,7 @@ from google import genai
 from dotenv import load_dotenv
 
 
-def get_recipe(url, recipe_name="Baked Salmon",unit_type="metric"):
+def get_recipe(url, recipe_name="Baked Salmon",unit_type="metric SI-Unit"):
     """
     get a recipe from a url
     """
@@ -19,13 +19,13 @@ def get_recipe(url, recipe_name="Baked Salmon",unit_type="metric"):
     recipe_steps = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
-            contents = f"Summarize the Steps one by line to provide this dish mentioned (enusre that you use {unit_type} units) in the text following: {recipe.text}"
+            contents = f"Summarize the Steps one by line to provide this dish mentioned (enusre that you use {unit_type} abbreviations) in the text following: {recipe.text}"
         )
     
     recipe_ingredients = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
-            contents = f"Summarize the Ingredients needed to prepare the dish mentioned (ensure that you use {unit_type} units also: make sure, that only the ingredients are listed with there units no extra text) in the follwing text: {recipe.text}"
+            contents = f"Summarize the Ingredients needed to prepare the dish mentioned (ensure that you use {unit_type} abbreviations also: make sure, that only the ingredients are listed with there units no extra text) in the follwing text: {recipe.text}"
         )
 
 
@@ -42,13 +42,13 @@ def get_recipe(url, recipe_name="Baked Salmon",unit_type="metric"):
         recipe_steps = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
-            contents = f"Write a Step by Step Guide on how to prepare a {recipe_name} using {unit_type} units."
+            contents = f"Write a Step by Step Guide on how to prepare a {recipe_name} using {unit_type} abbreviations."
         )
 
         recipe_ingredients = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
-            contents = f"Write a list of all ingredients needed for the following recipie steps using {unit_type} units make sure, that only the ingredients are listed with there units no extra text. It should look like this Ingredient::XXXXunit where XXXX are numbers. Here is the Text you should work with:{recipe_steps}"
+            contents = f"Write a list of all ingredients needed for the following recipie steps using {unit_type} abbreviations make sure, that only the ingredients are listed with there units no extra text. It should look like this 'Ingredient - XXXXunit' where XXXX are numbers. Here is the Text you should work with:{recipe_steps}"
         )
     
     return recipe_steps.text, recipe_ingredients.text
