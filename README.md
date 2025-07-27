@@ -54,29 +54,29 @@ python BiteWise.py --demo
 ## How to use BiteWise?
 
 - Fetch your favorit dishs recipe:
-´´´bash
+```bash
 python BiteWise.py --recipie "YOUR DISH OF CHOICE"
-´´´
+```
 
 - Fetch nutrition values for your favorit dish
-´´´bash
+```bash
 python BiteWise.py --nutrition "YOUR DISH OF CHOICE"
-´´´
+```
 
 - Never heard of that dish before? Take a sneakpeak without leaving the terminal!
-´´´bash
+```bash
 python BiteWise.py --image "YOUR DISH OF CHOICE"
-´´´
+```
 
 - Checkout the stable demo
-´´´bash
+```bash
 python BiteWise.py --demo
-´´´
+```
 
 - Ask for help
-´´´bash
+```bash
 python BiteWise.py --help
-´´´
+```
 
 ## Future improvements
 - Fetch Nutrion Data from an API e.g. [Edamam Food and Nutrion API](https://developer.edamam.com/edamam-docs-nutrition-api) , [Spoonacular API](https://spoonacular.com/food-api) or [USDA FoodData Central](https://fdc.nal.usda.gov/api-guide) rather then dealing with LLM hallucinations.
