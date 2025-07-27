@@ -1,4 +1,5 @@
 from utils.image_provider import provide_image
+from utils.food_information import find_food_information
 
 import argparse
 
@@ -14,7 +15,7 @@ def name_recipe(name):
 def main():
     parser = argparse.ArgumentParser(
         prog = "bitewise",
-        description = "BiteWise: Your command-line sous-chef for recipies & more."
+        description = "BiteWise: Your command-line sous-chef for recipes & more."
     )
 
     group = parser.add_mutually_exclusive_group(required=True)
@@ -38,46 +39,61 @@ def main():
 """
 Before Refactoring Area
 """
+import os
+import requests
+from google import genai
+from dotenv import load_dotenv
 
+def get_cooking(recipes):
+    """
+    check if input is of type string and transform it to a list if possible. Otherwise return boots favorit food.
+    """
+    if isinstance(recipes,str):
+        try:
+            individual_recipes = recipes.split(",")
+        except:
+            Exception("recipes format was wrong, providing information about Baked Salmon instead.")
+            individual_recipes = ["https://www.lecremedelacrumb.com/best-easy-healthy-baked-salmon/"]
 
-
-import requests 
-from bs4 import BeautifulSoup
-
-def url_parser(url):
-    try:
-        response = requests.get(url)
-        soup = BeautifulSoup(response.text, "html.parser")
-    except:
-        ConnectionError("Not able to fetch any data")
-        exit(1)
-
-    title = soup.find("h1").text
-
-    ingredients = []
-    ing_list = soup.find_all("li", class_="ingredient")
-    for li in ing_list:
-        ingredients.append(li.text)
-
-    img_tag = soup.find("img")
-    if img_tag:
-        img_url = img_tag.get("src")
-
-        print(ingredients,title)
-        return img_url
+ 
+    load_dotenv()
+    api_key = os.environ.get("GEMINI_API_KEY")
+    client = genai.Client(api_key=api_key)
     
-    else:
-        print(ingredients,title)
-        return "123.com"
+
+    """
+    determin recipies & ingreedients
+    """
+    recipes, ingreedients = {}, ""
+    for url in individual_recipes:
+        html = requests.get(url)
+        if html.status_code != 404:
+            recipies[url] = html.text
+            recipe_ingredients = client.models.generate_content(
+                model ="gemini-2.0-flash-001",
+                contents = f"Create a list word by word seperated by comma off all ingredients mentioned in the following text: {html.text} "
+            )
+            ingredients += recipe_ingredients.text
 
 def test():
-    url = "https://hot-thai-kitchen.com/laab-gai/"
-    img_url = url_parser(url)
     
+    """
+    title, recipes = find_food_information("Bannanen brot")
+    print(title)
+    print(recipes)
+    """
+
+    recipes ="https://einfachbacken.de/rezepte/bananenbrot-einfaches-rezept,https://www.lidl-kochen.de/rezeptwelt/bananenbrot-rezept-zum-backen-1453,https://www.koch-mit.de/rezepte/bananenbrot,https://www.gutekueche.at/bananenbrot-rezept-1946,https://www.springlane.de/magazin/ratgeber/bananenbrot-rezept/"
+
+    get_cooking(recipes)
+    
+    """
     provide_image(img_url)
+    """
     print("NUTRITION INFO")
     print("Protionsize")
     print("Cooking Instructions")
+
     return
 
 
