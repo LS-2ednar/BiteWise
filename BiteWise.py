@@ -1,13 +1,27 @@
 from utils.image_provider import provide_image
 from utils.food_information import find_food_information
+from utils.get_recipe import get_recipe
 
 import argparse
 
 def example():
-    print("Placeholder: Example-Way")
+    print("This Demo ignores your input! Bear, with me")
+    print("""\nIf you are coding and your foodie buddy tells you about this dish called 'Nam Tok'
+you could use this CLI and search for an image about the topic as follows:
+    
+    python BiteWise.py --img or -i Nam Tok
+    """)
+    input("\nPress Enter to see a Demo\n")
+    provide_image("https://thai-foodie.com/wp-content/uploads/2024/09/moo-nam-tok-redo-1-1024x1024.jpg")
+    print("""
+Now I know there are strong opinions about coriander / celantro which is why we will now continue with some more programmer friendly food.
 
-def url_recipe(url):
-    print("Placehodler: URL-Way")
+Our bearest friend boots love his backed salmon, but from time to time it is  hard to remember how the dish is produced. Fear no more, this CLI got you covered.
+
+    python BiteWise.py --recipe or -r Backed Salmon
+    """)
+    input("\nPress Enter to see a Demo\n")
+    get_recipe("https://www.lecremedelacrumb.com/best-easy-healthy-baked-salmon/")
 
 def name_recipe(name):
     print("Placeholder: NAME-Way")
@@ -21,17 +35,18 @@ def main():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--poc" ,type=str, help="A Demo for our friend Boots the Bear")
     group.add_argument("-p" ,type=str, help="A Demo for our friend Boots the Bear")
-    group.add_argument("--url" ,type=str, help="URL to a recipie")
-    group.add_argument("-u" ,type=str, help="URL to a recipie")
+    group.add_argument("--test" ,type=str, help="A Demo for our friend Boots the Bear")
+    group.add_argument("-t" ,type=str, help="A Demo for our friend Boots the Bear")
+    group.add_argument("--recipe" ,type=str, help="Get a recipe for the dish you are looking for")
+    group.add_argument("-r" ,type=str, help="Get a recipe for  the dish you are looking for")
+    
     group.add_argument("--name", type=str, help="Name of a recipe to search for")
     group.add_argument("-n", type=str, help="Name of a recipe to search for")
 
     args = parser.parse_args()
 
-    if args.poc or args.p:
+    if args.poc or args.p or args.test or args.t:
         example()
-    elif args.url or args.u:
-        url_recipe(args.url)
     elif args.name or args.n:
         name_recipe(args.name)
 
@@ -39,41 +54,6 @@ def main():
 """
 Before Refactoring Area
 """
-import os
-import requests
-from google import genai
-from dotenv import load_dotenv
-
-def get_cooking(recipes):
-    """
-    check if input is of type string and transform it to a list if possible. Otherwise return boots favorit food.
-    """
-    if isinstance(recipes,str):
-        try:
-            individual_recipes = recipes.split(",")
-        except:
-            Exception("recipes format was wrong, providing information about Baked Salmon instead.")
-            individual_recipes = ["https://www.lecremedelacrumb.com/best-easy-healthy-baked-salmon/"]
-
- 
-    load_dotenv()
-    api_key = os.environ.get("GEMINI_API_KEY")
-    client = genai.Client(api_key=api_key)
-    
-
-    """
-    determin recipies & ingreedients
-    """
-    recipes, ingreedients = {}, ""
-    for url in individual_recipes:
-        html = requests.get(url)
-        if html.status_code != 404:
-            recipies[url] = html.text
-            recipe_ingredients = client.models.generate_content(
-                model ="gemini-2.0-flash-001",
-                contents = f"Create a list word by word seperated by comma off all ingredients mentioned in the following text: {html.text} "
-            )
-            ingredients += recipe_ingredients.text
 
 def test():
     
@@ -82,10 +62,9 @@ def test():
     print(title)
     print(recipes)
     """
-
-    recipes ="https://einfachbacken.de/rezepte/bananenbrot-einfaches-rezept,https://www.lidl-kochen.de/rezeptwelt/bananenbrot-rezept-zum-backen-1453,https://www.koch-mit.de/rezepte/bananenbrot,https://www.gutekueche.at/bananenbrot-rezept-1946,https://www.springlane.de/magazin/ratgeber/bananenbrot-rezept/"
-
-    get_cooking(recipes)
+    recipe, ingredients = get_recipe("https://ifoodreal.com/baked-salmon-recipe/")
+    print(recipe)
+    print(ingredients)
     
     """
     provide_image(img_url)
@@ -104,7 +83,7 @@ End of Before Refactoring Area
 
 
 if __name__ == "__main__":
-    """
+    """    
     main()
     """
     test()
