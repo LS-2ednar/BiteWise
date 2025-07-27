@@ -9,6 +9,7 @@ def get_makros(ingredients):
     client = genai.Client(api_key=api_key)
 
     nutrion_table = ["Ingredient - amount - kcal - protein - carbs - fatts"]
+    kcal, protein, carbs, fatt = 0,0,0,0
 
     for ingredient in ingredients.split("\n"):
 
@@ -16,11 +17,22 @@ def get_makros(ingredients):
             model ="gemini-2.0-flash-001",
             contents = f"Return the Makro nutrients for {ingredient}. if you have not recived anything return "". It is mandatory that you only return kcal, protein, carbs and fatts. MANDATORY!!! Use this format for your output 'kcal - protein - carbs - fatts' NO additonal text please."
         )
-
         nutrion_table.append(f"{ingredient} - {makros.text}")
+    
 
     for entry in nutrion_table:
         print(entry)
-        
+
+    for entry in nutrion_table.split("\n"):
+        try:
+            lis = entry.split("-")
+            kcal += int(re.findall(r'\d+',lis[2])[0])
+            protein += int(re.findall(r'\d+',lis[3])[0])
+            carbs += int(re.findall(r'\d+',lis[4])[0])
+            fatt += int(re.findall(r'\d+',lis[5])[0])
+        except:
+            pass
+    print(f"Total Amounts:\nkcal{kcal}, protein{protein}g, carbs{carbs}g, fatt{fatt}g")
+
     return  nutrion_table
     

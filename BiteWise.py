@@ -1,5 +1,7 @@
+#!/usr/bin/env python3
 from utils.functions import demo, fetch_recipe, fetch_nutrition
 import argparse
+import re 
 
 def main():
     parser = argparse.ArgumentParser(
