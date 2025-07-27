@@ -1,11 +1,11 @@
 # BiteWise
 ChatGPT said: BiteWise is your smart command-line sous-chef—fetching recipes, nutrition facts, and step-by-step guides straight to your terminal, complete with mouthwatering images.
 
-This Hackaton version for the [BOOT.DEV Hackathon 2025](https://blog.boot.dev/news/hackathon-2025/) is currently reliant on an GEMINI API KEY follow the installation steps to set everything up correctly.
+This Hackathon version for the [BOOT.DEV Hackathon 2025](https://blog.boot.dev/news/hackathon-2025/) currently relies on a GEMINI API key. Follow the installation steps to set everything up correctly.
 
 ## Installation
 
-1. Clone the repository to your environment an move into the directory
+1. Clone the repository and move into the project directory:
 ```bash
 git clone https://github.com/LS-2ednar/BiteWise
 ```
@@ -13,7 +13,7 @@ git clone https://github.com/LS-2ednar/BiteWise
 cd BiteWise
 ```
 
-2. Create a new python environment for this project.
+2. Create a new Python virtual environment for this project:
 ```bash
 python -m venv venv
 ```
@@ -24,62 +24,67 @@ or
 python3 -m venv venv
 ```
 
-3. Set the environment as your new source
+3. Activate the virtual environment:
 ```bash
 source venv/bin/activate
 ```
 
-4. Install the requirements
+4. Install the required dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-5. Ensure you have an Gemini API Key this is a free plan option. You will need to create an account here: [https://aistudio.google.com](https://aistudio.google.com). When you finished createing your account you should be able to create a API Keye here: [https://aistudio.google.com/apikey](https://aistudio.google.com/apikey) then click the "Create API Key" button. Check out the [docs](https://ai.google.dev/gemini-api/docs/api-key?hl=en) if you struggle.
+5. Optain a Gemini API key (a free plan is available).
+- First, create an account here: [https://aistudio.google.com](https://aistudio.google.com). 
+- Once your account is set up, generate your API key here: [https://aistudio.google.com/apikey](https://aistudio.google.com/apikey) by clicking the "Create API Key" button. 
+- If you encounter any issues, consult the [official docmentation](https://ai.google.dev/gemini-api/docs/api-key?hl=en) if you struggle.
 
-6. Create an ```.env``` file 
+6. Create an ```.env``` file: 
 ```bash
 touch .env
 ```
 
-and add the key as follows
+Add the following line to your ```.env``` file: 
 
 ```bash
 GEMINI_API_KEY="your_api_key_here"
 ```
 
-7. Checkout the demo
+7. Try out the demo
 ```bash
 python BiteWise.py --demo
 ```
 ## How to use BiteWise?
 
-- Fetch your favorit dishs recipe:
+- Fetch your favorit dish's recipe:
 ```bash
 python BiteWise.py --recipie "YOUR DISH OF CHOICE"
 ```
 
-- Fetch nutrition values for your favorit dish
+- Fetch nutrition values for your favorit dish:
 ```bash
 python BiteWise.py --nutrition "YOUR DISH OF CHOICE"
 ```
 
-- Never heard of that dish before? Take a sneakpeak without leaving the terminal!
+- Never heard of that dish before? Preview it right in your terminal:
 ```bash
 python BiteWise.py --image "YOUR DISH OF CHOICE"
 ```
 
-- Checkout the stable demo
+- Run the demo:
 ```bash
 python BiteWise.py --demo
 ```
 
-- Ask for help
+- Need help?
 ```bash
 python BiteWise.py --help
 ```
 
 ## Future improvements
-- Fetch Nutrion Data from an API e.g. [Edamam Food and Nutrion API](https://developer.edamam.com/edamam-docs-nutrition-api) , [Spoonacular API](https://spoonacular.com/food-api) or [USDA FoodData Central](https://fdc.nal.usda.gov/api-guide) rather then dealing with LLM hallucinations.
-- Create a Mealplanner ?
-- Optimize Foodchoices ?
-- Optimize the prompts to be 100% hallucination free (We all wish that would be true)
+- Fetch Nutrion Data from an API suchg as [Edamam Food and Nutrion API](https://developer.edamam.com/edamam-docs-nutrition-api) , [Spoonacular API](https://spoonacular.com/food-api) or [USDA FoodData Central](https://fdc.nal.usda.gov/api-guide), instead of relying solely on LLMs.
+- Build a meal planner.
+- Optimize food choices and recommendations
+- Improve prompts to further reduce LLM hallucinations (we all wish this could be 100% guaranteed!).
+- Cleaning up the code more.
+- Make outputs prettier. 

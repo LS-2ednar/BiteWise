@@ -20,7 +20,7 @@ Our BEAREST friend Boots loves his "Backed Salmon", but from time to time it is 
     python BiteWise.py --recipe or -r "Backed Salmon"
     """)
     input("\nPress Enter to see a Demo\n")
-    steps, ingredients = get_recipe("https://www.lecremedelacrumb.com/best-easy-healthy-baked-salmon/")
+    steps, ingredients = get_recipe("https://www.lecremedelacrumb.com/best-easy-healthy-baked-salmon/","Backed Salmon")
 
     print("These are the cooking Steps:")
     print(steps)
@@ -37,7 +37,6 @@ Our BEAREST friend Boots loves his "Backed Salmon", but from time to time it is 
     input("\nPress Enter to see a Demo\n")
 
     makros = get_makros(ingredients)
-
 
 def fetch_recipe(dish):
     name, url = find_food_information(dish) 

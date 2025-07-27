@@ -19,7 +19,6 @@ def get_makros(ingredients):
         )
         nutrion_table.append(f"{ingredient} - {makros.text}")
     
-
     for entry in nutrion_table:
         print(entry)
 
