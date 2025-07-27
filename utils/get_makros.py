@@ -21,5 +21,6 @@ def get_makros(ingredients):
 
     for entry in nutrion_table:
         print(entry)
-    return 
+        
+    return  nutrion_table
     

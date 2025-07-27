@@ -23,9 +23,9 @@ def find_food_information(food):
     url_text_clean = food_name.replace("\n","")
     request_url = f"https://www.google.com/search?q={url_text_clean.replace(' ','+')}+recipe"
     recipes_html = requests.get(request_url)
-    recipies = client.models.generate_content(
+    recipes_urls = client.models.generate_content(
         model ="gemini-2.0-flash-001",
-        contents = f"Return only the first 5 recipie urls about {food_name} seperate them by comma no additional information needed, from the following text: {recipes_html.text}"
+        contents = f"Return only the first recipie url about {food_name}, from the following text: {recipes_html.text}"
     )
 
-    return proper_food_name.text, recipies.text 
+    return proper_food_name.text, recipes_urls.text 

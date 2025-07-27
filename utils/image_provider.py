@@ -14,4 +14,6 @@ def provide_image(url):
         #Looks kind of funny in zsh terminal.
     except:
         print("\n\nYou are trying to eat more than your terminal can chew.\nChange your terminal size and try again.\n\n")
+
+    return image
         
