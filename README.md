@@ -40,3 +40,6 @@ python BiteWise.py --init
 ```bash
 python BiteWise.py --demo
 ```
+
+## Future improvements
+- Fetch Nutrion Data from another API e.g. [Edamam Food and Nutrion API](https://developer.edamam.com/edamam-docs-nutrition-api) , [Spoonacular API](https://spoonacular.com/food-api) or [USDA FoodData Central](https://fdc.nal.usda.gov/api-guide)
