@@ -4,6 +4,7 @@ from utils.get_recipe import get_recipe
 from utils.get_makros import get_makros
 
 import argparse
+import rich
 
 def demo():
     print("This Demo ignores your input! Bear, with me")
@@ -54,7 +55,7 @@ def main():
     )
 
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--poc", "-p", action="store_true", help="A Demo for our friend Boots the Bear")
+    group.add_argument("--demo", "-d", action="store_true", help="A Demo for our friend Boots the Bear")
     group.add_argument("--test", "-t", action="store_true", help="A Demo for our friend Boots the Bear")
     group.add_argument("--recipe", "-r" ,type=str, help="Get a recipe for the dish you are looking for")
     group.add_argument("--nutrition","-n", type=str, help="Get Nutritonal information about your dish")
@@ -66,8 +67,12 @@ def main():
 
     args = parser.parse_args()
 
-    if args.poc or args.p or args.test or args.t:
+    if args.demo or args.d or args.test or args.t:
         demo()
+    elif args.recipe or args.r:
+        print("recipie")
+    elif args.nutrion or args.n:
+        print("nutrion")
     elif args.name or args.n:
         name_recipe(args.name)
 
@@ -85,8 +90,8 @@ def test():
     print(title)
     print(recipes)
     """
+    """
     recipe, ingredients = get_recipe("https://ifoodreal.com/baked-salmon-recipe/")
-    """print(recipe)"""
 
     print("\n\n\n")
     print(ingredients)
@@ -96,13 +101,12 @@ def test():
     
     makros = get_makros(ingredients)
     print(makros)
-    
+    """
     """
     provide_image(img_url)
     """
-    print("NUTRITION INFO")
-    print("Protionsize")
-    print("Cooking Instructions")
+    print("Try this: \033]8;;https://aistudio.google.com/prompts/new_chat\033\\Click here for Google AI Studio\033]8;;\033\\")
+
 
     return
 
