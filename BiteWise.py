@@ -1,4 +1,4 @@
-from utils.functions import demo, fetch_recipe, fetch_nutrition
+from utils.functions import demo, fetch_recipe, fetch_nutrition, fetch_image
 import argparse
 import re 
 
@@ -19,11 +19,11 @@ def main():
     if args.demo or args.test:
         demo()
     elif args.recipe:
-        fetch_recipe("".join(args.recipe))
+        fetch_recipe(" ".join(args.recipe))
     elif args.nutrition:
-        fetch_nutrition("".join(args.recipe))
+        fetch_nutrition(" ".join(args.recipe))
     elif args.image:
-        fetch_image("".join(args.recipe))
+        fetch_image(" ".join(args.image))
 
 if __name__ == "__main__":
     main()

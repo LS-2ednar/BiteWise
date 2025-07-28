@@ -16,16 +16,28 @@ def find_food_information(food):
         contents = f"Can you find a food that is called {food} and return the correct spelling, no extra information needed."
     )
     
-    """
-    find food recipies on google
-    """
-    food_name = proper_food_name.text
-    url_text_clean = food_name.replace("\n","")
-    request_url = f"https://www.google.com/search?q={url_text_clean.replace(' ','+')}+recipe"
-    recipes_html = requests.get(request_url)
-    recipes_urls = client.models.generate_content(
-        model ="gemini-2.0-flash-001",
-        contents = f"Return only the first recipie url about {food_name}, from the following text: {recipes_html.text}"
-    )
+    def ask_gemini_for_recipe_page(dish_name):
+    # Gemini prompt: find a real, reputable recipe webpage for the dish
+        prompt = f"Find a real, reputable English-language recipe webpage for '{dish_name}'. Respond ONLY with the direct URL, nothing else."
+        api_key = os.environ.get("GEMINI_API_KEY")  # Or however you store your key
 
-    return proper_food_name.text, recipes_urls.text 
+        headers = {"Content-Type": "application/json"}
+        data = {
+            "contents": [{"parts": [{"text": prompt}]}]
+        }
+
+        response = requests.post(
+            "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + api_key,
+            headers=headers,
+            json=data,
+            timeout=30
+        )
+        url = response.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
+        return url
+    try:
+        recipes_urls = ask_gemini_for_recipe_page(proper_food_name.text)
+    except:
+        print("Faild to find a real URL :-(")
+        recipes_urls = "www.noURL.cry"
+
+    return proper_food_name.text, recipes_urls

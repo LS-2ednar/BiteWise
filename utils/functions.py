@@ -41,7 +41,15 @@ Our BEAREST friend Boots loves his "Backed Salmon", but from time to time it is 
 def fetch_recipe(dish):
     name, url = find_food_information(dish) 
     steps, ingredients = get_recipe(url,name)
+    print(f"How to Cook: {dish}")
+    print(f"""====================================
+    Ingredients             
+====================================\n""")
     print(ingredients)
+    print(f"""====================================
+    Recipe             
+====================================\n""")
+    print(steps)
     return
 
 def fetch_nutrition(dish):
@@ -49,3 +57,8 @@ def fetch_nutrition(dish):
     steps, ingredients = get_recipe(url,name)
     get_makros(ingredients)
     return 
+
+def fetch_image(dish):
+    name,url = find_food_information(dish)
+    provide_image(url)
+    

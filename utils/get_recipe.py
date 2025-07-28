@@ -36,13 +36,13 @@ def get_recipe(url, recipe_name ,unit_type="metric SI-Unit"):
         recipe_steps = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
-            contents = f"Write a Step by Step Guide on how to prepare {recipe_name} using {unit_type} abbreviations."
+            contents = f"Write a Step by Step Guide on how to prepare {recipe_name} using {unit_type} abbreviations. Ensure that you only list the Equipment & Steps needed the Ingreedients are allready known."
         )
 
         recipe_ingredients = client.models.generate_content(
 
             model ="gemini-2.0-flash-001",
-            contents = f"Write a list of all ingredients needed for the following recipie steps using {unit_type} abbreviations make sure, that only the ingredients are listed with there units no extra text. It should look like this 'Ingredient - XXXXunit' where XXXX are numbers. Here is the Text you should work with:{recipe_steps}"
+            contents = f"Write a list of all ingredients needed for the following recipie using {unit_type} abbreviations make sure, that only the ingredients are listed with there units no extra text. It should look like this 'Ingredient - XXXXunit' where XXXX are numbers. Here is the Text you should work with:{recipe_steps}"
         )
 
         return recipe_steps.text, recipe_ingredients.text
