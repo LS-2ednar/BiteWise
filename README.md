@@ -88,3 +88,4 @@ python BiteWise.py --help
 - Improve prompts to further reduce LLM hallucinations (we all wish this could be 100% guaranteed!).
 - Cleaning up the code more.
 - Make outputs prettier. 
+- Some additional features
