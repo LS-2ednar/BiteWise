@@ -90,6 +90,12 @@ python BiteWise.py --help
 - Cleaning up the code more.
 - Make outputs prettier. 
 - Some additional features
+<<<<<<< HEAD
 =======
 - Fetch Nutrion Data from another API e.g. [Edamam Food and Nutrion API](https://developer.edamam.com/edamam-docs-nutrition-api) , [Spoonacular API](https://spoonacular.com/food-api) or [USDA FoodData Central](https://fdc.nal.usda.gov/api-guide). The future of this Project is mostlikely none existing anymore as the interest in it is no longer there. 
 >>>>>>> dc365f0 (new commit)
+=======
+- Did you know that Factorio also helps you learn to programm?
+>>>>>>> updated some knowledge
+
+here is even more stuff
