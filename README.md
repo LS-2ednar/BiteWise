@@ -102,4 +102,4 @@ here is even more stuff
 
 Features that would be nice to have can be addeed at a later sage.
 Awesome fruit needs to be added into the mix
-in case you did not know, there are delicous recpies which want to be learned. 
+in case you did not know, there are delicous recpies which want to be learned. It is also worth mentioning that the amount of spice in a recipie might impact the amount of flavor of a dish
